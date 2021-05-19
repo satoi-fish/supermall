@@ -23,10 +23,12 @@ export default {
     },
   },
   mounted(){
+    this.$nextTick(() => {
     this.scroll = new bs(this.$refs.wrapper,{
       click: true,
       probeType: this.probetype,
       pullUpLoad:this.pullUpLoad
+    })
     })
     if(this.probetype === 2 || this.probetype === 3){
       this.scroll.on('scroll',(position) =>{
@@ -36,6 +38,14 @@ export default {
     this.pullUpLoad && this.scroll.on('pullingUp',() => {
       this.$emit('pullUpLoad')
     })
+  },
+  watch: {
+    // 监听数据的变化，延时refreshDelay时间后调用refresh方法重新计算，保证滚动效果正常
+    data() {
+      setTimeout(() => {
+        this.refresh()
+      }, this.refreshDelay)
+    }
   },
   methods: {
     scrollTo(x, y, time = 300){

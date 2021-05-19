@@ -42,6 +42,11 @@ export default {
 };
 </script>
 <style scoped>
+  .DetailNavBar{
+    position: relative;
+    background-color: #fff;
+    z-index: 9;
+  }
   .title{
     display: flex;
   font-size: 13px;
