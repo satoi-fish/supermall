@@ -3,7 +3,7 @@
   <div v-if="Object.keys(detailInfo).length !== 0" class="DetailGoodsInfo">
     <div class="infoDesc clear-fix">
       <div class="start"></div>
-      <div class="desc">{{detailInfo.desc}}</div>
+      <div class="desc">{{detailInfo.title}}</div>
       <div class="end"></div>
     </div>
     <div class="infoKey">{{detailInfo.detailImage[0].key}}</div>
@@ -32,7 +32,13 @@ export default {
   },
   methods:{
     imgLoad(){
-
+        this.$emit("imageLoad")
+    }
+  },
+  watch:{
+    detailInfo(){
+      //获取图片的个数，只获取一次或两次
+      this.imagesLength = this.detailInfo.detailImage[0].list.length
     }
   }
 };

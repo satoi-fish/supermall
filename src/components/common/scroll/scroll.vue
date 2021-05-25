@@ -23,13 +23,12 @@ export default {
     },
   },
   mounted(){
-    this.$nextTick(() => {
     this.scroll = new bs(this.$refs.wrapper,{
       click: true,
       probeType: this.probetype,
       pullUpLoad:this.pullUpLoad
     })
-    })
+    
     if(this.probetype === 2 || this.probetype === 3){
       this.scroll.on('scroll',(position) =>{
         this.$emit('scroll',position)

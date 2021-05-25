@@ -35,21 +35,23 @@
 </template>
 
 <script>
-import Scroll from "components/common/scroll/scroll";
+import { debounce } from "common/utils"
 
-import HomeSwiper from "./childComps/HomeSwiper";
-import RecommendView from "./childComps/RecommendView";
-import FeatureView from "./childComps/FeatureView";
+import Scroll from "components/common/scroll/scroll"
+import NavBar from "components/common/navbar/NavBar"
 
-import NavBar from "components/common/navbar/NavBar";
+import HomeSwiper from "./childComps/HomeSwiper"
+import RecommendView from "./childComps/RecommendView"
+import FeatureView from "./childComps/FeatureView"
 
-import TabControl from "components/content/tabControl/TabControl";
-import GoodsList from "components/content/goods/GoodsList";
-import BackTop from "components/content/backTop/BackTop";
+import {backTopMixin} from 'common/mixin'
 
-import { getHomeMultidata, getHomeGoods, } from "network/home";
+import TabControl from "components/content/tabControl/TabControl"
+import GoodsList from "components/content/goods/GoodsList"
+import BackTop from "components/content/backTop/BackTop"
 
-import { debounce } from "common/utils";
+import { getHomeMultidata, getHomeGoods, } from "network/home"
+
 export default {
   name: "home",
   components: {
@@ -60,7 +62,7 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
-    BackTop,
+    // BackTop,
   },
   data() {
     return {
@@ -74,13 +76,14 @@ export default {
       },
       currentType: "pop",
       isPullUpLoad: true,
-      isBackToTop: false,
       delayRefresh: 0,
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0,
+      itemImgListener: function(){},
     };
   },
+  mixins:[backTopMixin],
   created() {
     //请求多个数据
     this.getHomeMultidata();
@@ -91,13 +94,11 @@ export default {
   },
   mounted(){
     const refresh = debounce(this.$refs.Scroll.refresh,this.delayRefresh)
-    
-    this.$bus.$on('itemImageLoad',()=>{
-          refresh()
+    this.$bus.$on('homeItemImageLoad',()=>{
+      refresh()
     })
   },
   destroyed(){
-    console.log('sss')
   },
   activated(){
     this.$refs.Scroll.scrollTo(0, this.saveY , 1000000)
@@ -142,9 +143,6 @@ export default {
         this.isBackToTop = position.y <= -1000 ? true : false
       
         this.isTabFixed = position.y < -this.tabOffsetTop ? true : false
-    },
-    backClick() {
-      this.$refs.Scroll.scrollTo(0, 0, 1000);
     },
     tabClick(index) {
       // console.log(index)
