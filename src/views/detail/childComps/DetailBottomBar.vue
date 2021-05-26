@@ -42,7 +42,9 @@ methods:{
   .DetailBottomBar{
     height: 49px;
     background-color: #fff;
-    position: relative;
+    position: fixed;
+    left:0;
+    right: 0px;
     /* bottom: 49px; */
 
     display: flex;
