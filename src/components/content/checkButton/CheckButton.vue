@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="CheckButton">
-    <img src="~assets/img/cart/tick.svg" alt="">
+    <img src="~assets/img/cart/tick.svg" v-show="isChecked" alt="">
   </div>
 </template>
 
@@ -11,20 +11,30 @@ export default {
   data() {
     return {};
   },
+  props:{
+    isChecked:{
+      type:Boolean,
+      default(){
+        return false
+      }
+    }
+  }
 };
 </script>
 <style scoped>
   .CheckButton{
-    width: 25px;
-    height: 25px;
-    background-color: var(--color-tint);
-    border-radius: 20px;
+    width: 23px;
+    height: 23px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border:1px solid #333;
+    border-radius: 20px;
   }
   .CheckButton img{
-    height: 18px;
-    width: 18px;
+    border-radius: 20px;
+    background-color: var(--color-tint);
+    height: 106%;
+    width: 106%;
   }
 </style>

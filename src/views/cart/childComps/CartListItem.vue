@@ -1,8 +1,8 @@
 <!--  -->
 <template>
   <div class="CartListItem">
-    <div class="checkButton">
-      <CheckButton />
+    <div class="checkButton" @click="btnClick">
+      <CheckButton :isChecked="product.checked" />
     </div>
     <div class="Cleft image">
       <img :src="product.image" alt="">
@@ -28,10 +28,16 @@ import CheckButton from 'components/content/checkButton/CheckButton';
 export default {
   name: "CartListItem",
   data() {
-    return {};
+    return {
+    };
   },
   components:{
     CheckButton
+  },
+  methods:{
+    btnClick(){
+      this.product.checked = !this.product.checked
+    }
   },
   props:{
     product:{
@@ -91,6 +97,11 @@ export default {
     display: flex;
     flex-direction: row;
     position: relative;
+  }
+  .price{
+    color:rgb(255, 137, 58);
+    font-size:18px;
+    font-weight: 600;
   }
   .count{
     position: absolute;

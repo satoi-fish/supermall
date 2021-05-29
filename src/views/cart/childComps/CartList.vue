@@ -6,7 +6,6 @@
           v-for="(item,index) in list" 
           :key="index" 
           :product="item" />
-          <!-- :number="index" -->
     </Scroll>
   </div>
 </template>
@@ -41,7 +40,7 @@ export default {
 </script>
 <style scoped>
   .CartList{
-    height: calc(100% - 44px - 49px);
+    height: calc(100% - 44px - 49px - 40px);
   }
   .content{
     height: 100%;

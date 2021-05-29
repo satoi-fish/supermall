@@ -9,6 +9,7 @@
     <!-- 商品列表 -->
     <CartList />
     <!-- 底部汇总 -->
+    <CartButtonBar />
   </div>
 </template>
 
@@ -16,6 +17,7 @@
 import NavBar from "components/common/navbar/NavBar"
 
 import CartList from './childComps/CartList';
+import CartButtonBar from './childComps/CartButtonBar';
 
 import { mapGetters } from 'vuex';
 
@@ -34,6 +36,7 @@ export default {
   components:{
     NavBar,
     CartList,
+    CartButtonBar,
   }
 };
 </script>

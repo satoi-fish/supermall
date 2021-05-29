@@ -12,7 +12,7 @@
         <GoodsList ref="recomment" :goods='recommends'/>
     </Scroll>
     <BackTop @click.native="backClick" v-show="isBackToTop"/>
-    <DetailBottomBar @addCart="addCart"/>
+    <DetailBottomBar @addCart="addToCart"/>
   </div>
 </template>
 
@@ -21,6 +21,7 @@ import {getDetail, GoodsInfo, Shop, GoodsParam, getRecommend} from 'network/deta
 
 import { debounce } from "common/utils"
 
+import {mapActions} from 'vuex';
 
 import Scroll from 'components/common/scroll/scroll'
 
@@ -116,6 +117,7 @@ export default {
   destroyed(){
   },
   methods:{
+    ...mapActions(['addCart']),
     contentScroll(position){
       //本身是负值得取反对比
       const positionY = -position.y
@@ -141,7 +143,7 @@ export default {
       // console.log(index)
       this.$refs.Scroll.scrollTo(0, -this.themeTopYs[index], 100)
     },
-    addCart(){
+    addToCart(){
       //获取商品信息
       const product= {}
       product.image = this.topImages[0]
@@ -152,7 +154,10 @@ export default {
       product.iid = this.iid
 
       //将商品添加到购物车
-      this.$store.dispatch('addCart',product)
+      this.addCart(product).then(res=>{
+        console.log(2)
+        this.$toast.show(res, 5000)
+      })
     }
   }
 };
